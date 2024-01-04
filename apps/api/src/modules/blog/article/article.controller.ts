@@ -8,11 +8,11 @@ import {
 } from "~/modules/auth/decorators/permission.decorator";
 import { PagerDto } from "~/common/dto/pager.dto";
 
-export const permissions: PermissionMap<"post:article"> = {
-  LIST: "post:article:list",
+export const permissions: PermissionMap<"blog:article"> = {
+  LIST: "blog:article:list",
 } as const;
 
-@ApiTags("Post - 内容模块")
+@ApiTags("Blog - 内容模块")
 @ApiSecurityAuth()
 @Controller("article")
 export class ArticleController {

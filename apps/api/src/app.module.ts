@@ -22,7 +22,7 @@ import { ToolsModule } from "./modules/tools/tools.module";
 import { DatabaseModule } from "./shared/database/database.module";
 
 import { SocketModule } from "./socket/socket.module";
-import { PostModule } from "./modules/post/post.module";
+import { BlogModule } from "./modules/blog/blog.module";
 
 @Module({
   imports: [
@@ -47,7 +47,7 @@ import { PostModule } from "./modules/post/post.module";
 
     TodoModule,
 
-    PostModule,
+    BlogModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

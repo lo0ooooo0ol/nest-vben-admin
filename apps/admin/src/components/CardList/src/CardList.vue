@@ -39,7 +39,8 @@
                 </div>
               </template>
               <template #actions>
-                <EditOutlined />
+                <EditOutlined /> 
+                <EyeOutlined @click="handleView(item.id)"/>
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -77,6 +78,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
   import {
+    EyeOutlined,
     EditOutlined,
     EllipsisOutlined,
     RedoOutlined,
@@ -103,7 +105,7 @@
     api: propTypes.func,
   });
   //暴露内部方法
-  const emit = defineEmits(['getMethod', 'delete']);
+  const emit = defineEmits(['getMethod', 'delete','view']);
   //数据
   const data = ref([]);
   // 切换每行个数
@@ -117,7 +119,7 @@
   const [registerForm, { validate }] = useForm({
     schemas: [{ field: 'type', component: 'Input', label: '类型' }],
     labelWidth: 80,
-    baseColProps: { span: 6 },
+    baseColProps: { span: 4 },
     actionColOptions: { span: 24 },
     autoSubmitOnEnter: true,
     submitFunc: handleSubmit,
@@ -173,5 +175,8 @@
 
   async function handleDelete(id: number) {
     emit('delete', id);
+  }
+  async function handleView(id: number) {
+    emit('view', id);
   }
 </script>

@@ -10,7 +10,7 @@ export const columns: BasicColumn[] = [
     width: 80,
     dataIndex: 'avatar',
     customRender: ({ record }) => {
-      return h(Avatar, { size: 60, src: record.avatar }, () => '');
+      return h(Avatar, { size: 25, src: record.avatar }, () => '');
     },
   },
   {

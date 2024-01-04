@@ -33,7 +33,7 @@ export class UserEntity extends AbstractEntity {
   nickname: string
 
   @Column({ nullable: true})
-  realname:string
+  realName:string
   
   @Column({ name: 'avatar', nullable: true })
   avatar: string

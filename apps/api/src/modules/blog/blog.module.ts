@@ -7,9 +7,9 @@ const modules = [ArticleModule];
   imports: [
     ...modules,
     RouterModule.register([
-      { path: "post", module: PostModule, children: [...modules] },
+      { path: "blog", module: BlogModule, children: [...modules] },
     ]),
   ],
   exports: [...modules],
 })
-export class PostModule {}
+export class BlogModule {}
