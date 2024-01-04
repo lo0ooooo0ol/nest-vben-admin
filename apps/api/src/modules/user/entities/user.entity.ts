@@ -32,6 +32,9 @@ export class UserEntity extends AbstractEntity {
   @Column({ nullable: true })
   nickname: string
 
+  @Column({ nullable: true})
+  realname:string
+  
   @Column({ name: 'avatar', nullable: true })
   avatar: string
 

@@ -35,7 +35,7 @@
               <template #title></template>
               <template #cover>
                 <div :class="height">
-                  <Image :src="item.imgs[0]" />
+                  <Image :src="item.cover" />
                 </div>
               </template>
               <template #actions>
@@ -60,12 +60,12 @@
 
               <CardMeta>
                 <template #title>
-                  <TypographyParagraph :content="item.name" :ellipsis="{ tooltip: item.address }" />
+                  <TypographyParagraph :content="item.title" :ellipsis="{ tooltip: item.content }" />
                 </template>
                 <template #avatar>
-                  <Avatar :src="item.avatar" />
+                  <Avatar :src="item.cover" />
                 </template>
-                <template #description>{{ item.time }}</template>
+                <template #description>{{ item.create_time }}</template>
               </CardMeta>
             </Card>
           </ListItem>
