@@ -7,22 +7,22 @@
       <a-button> 保存草稿箱</a-button>
     </template>
     <template #centerFooter>
-      <a-button> 定时发布</a-button>
+      <a-button @click="timePublish"> 定时发布</a-button>
     </template>
 
-    <!-- <template #appendFooter>
-      <a-button> btn3</a-button>
-    </template> -->
 
-    <!-- <template #footer>
-      <a-button> customerFooter</a-button>
-    </template> -->
+    <TimeModal @register="timeRegister" />
     </BasicDrawer>
   </template>
   <script lang="ts" setup>
     import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+    import { useModal } from '@/components/Modal';
     import { BasicForm, FormSchema, useForm } from '@/components/Form';
-    import { uploadApi } from '@/api/sys/upload';
+    import { uploadApi } from '@/api/system/upload';
+    import TimeModal from './TimeModal.vue';
+
+
+    const [timeRegister, { openModal: openModal }] = useModal();
     const schemas: FormSchema[] = [
       {
         field: 'title',
@@ -66,13 +66,19 @@
     const [register] = useDrawerInner((data) => {
       // 方式1
       setFieldsValue({
-        field2: data.data,
-        field1: data.info,
+        startDateTime: data.startDateTime,
+   
       });
     });
     function handleOk() {
     console.log('=====================');
     console.log('ok');
     console.log('======================');
+  }
+  function timePublish(){
+    openModal(true, {
+ 
+      startDateTime:'2023-10-10 23:23:23'
+    });
   }
   </script>

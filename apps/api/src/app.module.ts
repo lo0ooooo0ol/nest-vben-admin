@@ -23,6 +23,7 @@ import { DatabaseModule } from "./shared/database/database.module";
 
 import { SocketModule } from "./socket/socket.module";
 import { BlogModule } from "./modules/blog/blog.module";
+import { MulterModule } from "@nestjs/platform-express";
 
 @Module({
   imports: [
@@ -30,6 +31,9 @@ import { BlogModule } from "./modules/blog/blog.module";
       isGlobal: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`, ".env"],
       load: [...Object.values(config)],
+    }),
+    MulterModule.register({
+      dest: './uploads',
     }),
     SharedModule,
     DatabaseModule,

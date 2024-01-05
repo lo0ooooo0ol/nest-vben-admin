@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { ArticleModule } from "./article/article.module";
 import { RouterModule } from "@nestjs/core";
+import { ArticleModule } from "./article/article.module";
 const modules = [ArticleModule];
 
 @Module({
@@ -11,5 +11,7 @@ const modules = [ArticleModule];
     ]),
   ],
   exports: [...modules],
+  controllers: [],
+  providers: [],
 })
 export class BlogModule {}

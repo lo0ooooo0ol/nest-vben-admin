@@ -32,7 +32,7 @@
   import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
 
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { uploadUrl } from '/@/api/sys/upload';
+  import { uploadUrl } from '/@/api/system/upload';
   import { getToken } from '/@/utils/auth';
   import { ref, watch } from 'vue';
 
