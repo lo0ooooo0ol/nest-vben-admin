@@ -1,9 +1,10 @@
 <template>
-    <BasicDrawer v-bind="$attrs" @register="register" title="基本设置" width="50%" :showCancelBtn="false" showFooter @ok="handleOk" okText="发布"> 
-      <div>
-        <BasicForm @register="registerForm" />
-      </div>
-      <template #insertFooter>
+  <BasicDrawer v-bind="$attrs" @register="register" title="基本设置" width="35%" :showCancelBtn="false" showFooter
+    @ok="handleSubmit" okText="发布">
+    <div>
+      <BasicForm @register="registerForm" />
+    </div>
+    <template #insertFooter>
       <a-button> 保存草稿箱</a-button>
     </template>
     <template #centerFooter>
@@ -11,74 +12,49 @@
     </template>
 
 
-    <TimeModal @register="timeRegister" />
-    </BasicDrawer>
-  </template>
-  <script lang="ts" setup>
-    import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
-    import { useModal } from '@/components/Modal';
-    import { BasicForm, FormSchema, useForm } from '@/components/Form';
-    import { uploadApi } from '@/api/system/upload';
-    import TimeModal from './TimeModal.vue';
+    <TimeModal @register="timeRegister" @handleOk="handleTime" />
+  </BasicDrawer>
+</template>
+<script lang="ts" setup>
+import { ref } from 'vue';
+import dayjs from 'dayjs';
+import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
+import { useModal } from '@/components/Modal';
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
-
-    const [timeRegister, { openModal: openModal }] = useModal();
-    const schemas: FormSchema[] = [
-      {
-        field: 'title',
-        component: 'Input',
-        label: '标题',
-        colProps: {
-          span: 24,
-        },
-        rules: [{ required: true, message: '请输入文章标题' }],
-        defaultValue: '',
-      },
-      {
-        field: 'field2',
-        component: 'Input',
-        label: '字段2',
-        colProps: {
-          span: 12,
-        },
-      },
-      {
-      field: 'cover',
-      component: 'Upload',
-      label: '封面',
-      colProps: {
-        span: 24,
-      },
-      rules: [{ required: true, message: '请选择上传封面' }],
-      componentProps: {
-        api: uploadApi,
-      },
-    },
-    ];
-    const [registerForm, { setFieldsValue }] = useForm({
-      labelWidth: 120,
-      schemas,
-      showActionButtonGroup: false,
-      actionColOptions: {
-        span: 24,
-      },
-    });
-    const [register] = useDrawerInner((data) => {
-      // 方式1
-      setFieldsValue({
-        startDateTime: data.startDateTime,
-   
-      });
-    });
-    function handleOk() {
-    console.log('=====================');
-    console.log('ok');
-    console.log('======================');
+import TimeModal from './TimeModal.vue';
+import { formSchema } from './article.data';
+const startDateTime = ref(dayjs().format('YYYY-MM-DD HH:mm:ss'));
+const [timeRegister, { openModal: openModal }] = useModal();
+const schemas: FormSchema[] = formSchema
+const [registerForm, { setFieldsValue, validate }] = useForm({
+  labelWidth: 120,
+  schemas,
+  showActionButtonGroup: false,
+  actionColOptions: {
+    span: 24,
+  },
+});
+const [register, { closeDrawer }] = useDrawerInner((data) => {
+  setFieldsValue(data);
+});
+async function handleSubmit() {
+  try {
+    const values = await validate();
+    console.log(values, 'values');
+  } catch (error) {
   }
-  function timePublish(){
-    openModal(true, {
- 
-      startDateTime:'2023-10-10 23:23:23'
-    });
-  }
-  </script>
+}
+function timePublish() {
+  openModal(true, {
+    startDateTime: startDateTime.value
+  });
+}
+async function handleTime(data: any) {
+  startDateTime.value = data.startDateTime
+  const values = await validate();
+  console.log(values, 'values');
+  closeDrawer()
+  openModal(false)
+}
+</script>

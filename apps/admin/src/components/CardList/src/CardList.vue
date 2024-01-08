@@ -90,7 +90,7 @@
   import { propTypes } from '/@/utils/propTypes';
   import { Button } from '/@/components/Button';
   import { isFunction } from '/@/utils/is';
-  import { useSlider, grid } from './data';
+  import { useSlider, grid ,searchFormSchema} from './data';
 
   const ListItem = List.Item;
   const CardMeta = Card.Meta;
@@ -117,11 +117,13 @@
   });
   //表单
   const [registerForm, { validate }] = useForm({
-    schemas: [{ field: 'type', component: 'Input', label: '类型' }],
+    schemas: searchFormSchema,
     labelWidth: 80,
-    baseColProps: { span: 4 },
+    baseColProps: { span: 6 },
     actionColOptions: { span: 24 },
     autoSubmitOnEnter: true,
+    showAdvancedButton: true,
+    autoAdvancedLine:1,
     submitFunc: handleSubmit,
   });
   //表单提交

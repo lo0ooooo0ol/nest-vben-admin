@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
 import { RouterModule } from "@nestjs/core";
 import { ArticleModule } from "./article/article.module";
-const modules = [ArticleModule];
+import { ColumnModule } from './column/column.module';
+const modules = [ArticleModule,ColumnModule];
 
 @Module({
   imports: [
